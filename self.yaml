@@ -37,7 +37,7 @@ jobs:
               - -cx
               - |
                 ls -l .
-                echo "File changed!!" > the-artifact/message
+                echo "The file has been changed once more, so it should be reflected in the next version i.e. V4!!" > the-artifact/message
       - task: read-the-artifact
         config:
           platform: linux
