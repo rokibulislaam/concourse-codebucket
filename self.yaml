@@ -51,5 +51,5 @@ jobs:
               - |
                 ls -l .
                 cat the-artifact/message
-
-
+    passed:
+      - trigger-on-merge
