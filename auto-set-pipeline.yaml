@@ -12,8 +12,8 @@ jobs:
   plan:
   - get: git-repo
     trigger: true
-  - set_pipeline: pipeline
-    file: git-repo/pipeline.yaml
+  - set_pipeline: auto-set-pipeline
+    file: git-repo/hello-world.yaml
 
   # - task: set-pipeline
   #   config:
