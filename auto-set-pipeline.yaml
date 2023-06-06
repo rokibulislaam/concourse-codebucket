@@ -12,7 +12,7 @@ jobs:
   plan:
   - get: git-repo
     trigger: true
-  - set_pipeline: pipeline
+  - set_pipeline: hello-world-pipeline
     file: git-repo/hello-world.yaml
 
   # - task: set-pipeline

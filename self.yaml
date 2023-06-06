@@ -1,0 +1,55 @@
+resources:
+  - name: git-repo
+    type: git
+    icon: github
+    check_every: 10s
+    source:
+      uri: https://github.com/rokibulislaam/concourse-codebucket.git
+      branch: feature/auto-set-pipeline
+
+jobs:
+  - name: trigger-on-merge
+    plan:
+      - get: git-repo
+        trigger: true
+        version: every
+        passed: []
+      - set_pipeline: self
+        file: git-repo/self.yaml
+        
+  - name: hello-world-job
+    plan:
+      - task: hello-world-task
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: busybox
+          outputs:
+            - name: the-artifact
+          run:
+            path: sh
+            args:
+              - -cx
+              - |
+                ls -l .
+                echo "again changed!! a few new words have been added! hello from another step! changed hello world" > the-artifact/message
+      - task: read-the-artifact
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: busybox
+          inputs:
+            - name: the-artifact
+          run:
+            path: sh
+            args:
+              - -cx
+              - |
+                ls -l .
+                cat the-artifact/message
+
+
