@@ -1,0 +1,39 @@
+resources:
+- name: git-repo
+  type: git
+  icon: github
+  check_every: 30s
+  source:
+    uri: https://github.com/rokibulislaam/concourse-codebucket.git
+    branch: feature/auto-set-pipeline
+
+jobs:
+- name: trigger-on-merge-file-change
+  plan:
+  - get: git-repo
+    trigger: true
+    version: every
+    passed: []
+  - task: check-file-changes
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source: {repository: busybox}
+      inputs:
+      - name: git-repo
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          # Check if hello-world.yaml has changed
+          if ! diff -q git-repo/hello-world.yaml git-repo/hello-world.yaml.previous; then
+            echo "File changed: hello-world.yaml"
+            cp git-repo/hello-world.yaml git-repo/hello-world.yaml.previous
+          else
+            echo "No change in hello-world.yaml. Skipping pipeline set."
+            exit 0
+          fi
+  - set_pipeline: pipeline
+    file: git-repo/hello-world.yaml
