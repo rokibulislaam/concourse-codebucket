@@ -1,0 +1,38 @@
+resources:
+- name: git-repo
+  type: git
+  source:
+    uri: https://github.com/rokibulislaam/concourse-codebucket.git
+    branch: main
+
+jobs:
+- name: trigger-on-merge
+  plan:
+  - get: git-repo
+    trigger: true
+  - set_pipeline: pipeline
+    file: pipeline.yaml
+    
+
+  # - task: set-pipeline
+  #   config:
+  #     platform: linux
+  #     image_resource:
+  #       type: registry-image
+  #       source: {repository: concourse/concourse, tag: latest}
+  #     inputs:
+  #     - name: git-repo
+  #     run:
+  #       path: sh
+  #       args:
+  #       - -exc
+  #       - |
+  #         fly -t tutorial login -u test -p test
+  #         changed_files=$(git diff-tree --no-commit-id --name-only -r HEAD)
+
+  #         for file in $changed_files; do
+  #           if [[ $file == *.yaml ]]; then
+  #             pipeline_name=$(basename "${file%.*}")
+  #             fly -t tutorial set-pipeline -p "$pipeline_name" -c "$file" -n
+  #           fi
+  #         done
