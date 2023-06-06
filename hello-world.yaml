@@ -16,7 +16,7 @@ jobs:
               - -cx
               - |
                 ls -l .
-                echo "a few new words have been added! hello from another step! changed hello world" > the-artifact/message
+                echo "again changed!! a few new words have been added! hello from another step! changed hello world" > the-artifact/message
       - task: read-the-artifact
         config:
           platform: linux
