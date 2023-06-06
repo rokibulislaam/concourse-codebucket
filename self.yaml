@@ -16,6 +16,7 @@ jobs:
         passed: []
       - set_pipeline: self
         file: git-repo/self.yaml
+        
 
   - name: hello-world-job
     plan:
@@ -38,7 +39,7 @@ jobs:
               - -cx
               - |
                 ls -l .
-                echo "It has been changed, so it should run set_pipeline!" > the-artifact/message
+                echo "It has been changed, so it should run set_pipeline!, now it has been changed again" > the-artifact/message
       - task: read-the-artifact
         config:
           platform: linux

@@ -48,3 +48,5 @@ jobs:
               - |
                 ls -l .
                 cat the-artifact/message
+
+# this file has also been changed
