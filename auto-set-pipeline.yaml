@@ -1,9 +1,11 @@
 resources:
 - name: git-repo
   type: git
+  icon: github
+  check_every: 30s
   source:
     uri: https://github.com/rokibulislaam/concourse-codebucket.git
-    branch: main
+    branch: feature/auto-set-pipeline
 
 jobs:
 - name: trigger-on-merge
@@ -11,8 +13,7 @@ jobs:
   - get: git-repo
     trigger: true
   - set_pipeline: pipeline
-    file: pipeline.yaml
-    
+    file: git-repo/pipeline.yaml
 
   # - task: set-pipeline
   #   config:
