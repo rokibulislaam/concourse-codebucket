@@ -13,7 +13,6 @@ jobs:
       - get: git-repo
         trigger: true
         version: every
-        passed: []
       - set_pipeline: self
         file: git-repo/self.yaml
         
@@ -22,6 +21,7 @@ jobs:
     plan:
       - get: git-repo
         passed: ['trigger-on-merge']
+        trigger: true
       - task: hello-world-task
         config:
           platform: linux
