@@ -21,8 +21,6 @@ jobs:
   - name: hello-world-job
     plan:
       - get: git-repo
-        trigger: true
-        version: every
         passed: ['trigger-on-merge']
       - task: hello-world-task
         config:
