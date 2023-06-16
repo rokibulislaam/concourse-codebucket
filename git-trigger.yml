@@ -24,4 +24,20 @@ jobs:
             args: 
               - -ec
               - |
-                printenv
+                cat .git/ref
+                # # Retrieve Git metadata
+                # cd repo
+                # commit_hash=$(git rev-parse HEAD)
+                # author=$(git log -1 --pretty=format:'%an')
+                # committer=$(git log -1 --pretty=format:'%cn')
+                # branch=$(git rev-parse --abbrev-ref HEAD)
+                # message=$(git log -1 --pretty=format:'%s')
+                # url=$(git config --get remote.origin.url)
+                
+                # # Use the metadata as needed
+                # echo "Commit Hash: $commit_hash"
+                # echo "Author: $author"
+                # echo "Committer: $committer"
+                # echo "Branch: $branch"
+                # echo "Message: $message"
+                # echo "URL: $url"
