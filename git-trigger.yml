@@ -1,0 +1,27 @@
+resources:
+  - name: repo
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/rokibulislaam/concourse-codebucket.git
+
+jobs:
+  - name: git-trigger-job
+    plan:
+      - get: repo
+        trigger: true # tell Concourse to trigger this job when new versions are emitted
+      - task: git-trigger-task
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: busybox
+          inputs:
+            - name: repo
+          run:
+            path: sh
+            args: 
+              - -ec
+              - |
+                printenv
