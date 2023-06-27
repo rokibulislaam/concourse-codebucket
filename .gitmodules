@@ -1,3 +1,7 @@
 [submodule "cron-resource"]
 	path = cron-resource
 	url = https://github.com/vmware-archive/cron-resource.git
+[submodule "submodule"]
+	path = submodule
+	url = https://github.com/rokibulislaam/submodule.git
+	branch = 6172fc21197b634d97d939a2012d660a80c760c1
